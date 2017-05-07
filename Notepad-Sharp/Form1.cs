@@ -70,17 +70,17 @@ namespace Notepad_Sharp
             Form3 CodeBin = new Form3();
             CodeBin.Show();
 
-            ContextMenu cm = new ContextMenu();
             cm.MenuItems.Add("Copy", new EventHandler(copyToolStripMenuItem_Click));
             cm.MenuItems.Add("Paste", new EventHandler(pasteToolStripMenuItem_Click));
 
             rBox.ContextMenu = cm;
-            
+            Tabs.SelectedTab.Controls[0].ContextMenu = cm;
         }
 
         string[] fileNameGlobals = new string[50000];
         string binFile = Path.Combine(Environment.CurrentDirectory,"config.bin");
-
+        ContextMenu cm = new ContextMenu();
+        
         //Programming Language Files
         string[] html = new string[2000];
         string path = Environment.CurrentDirectory + @"/ProgrammingLanguages/HTMLTags.txt";
@@ -419,6 +419,7 @@ namespace Notepad_Sharp
         
         public void Highlighter()
         {
+
             int start = rBox.SelectionStart;
             int len = rBox.SelectionLength;
 
@@ -457,6 +458,8 @@ namespace Notepad_Sharp
         private void Update_Tick(object sender, EventArgs e)
         {
             Highlighter();
+            rBox.ContextMenu = cm;
+            Tabs.SelectedTab.Controls[0].ContextMenu = cm;
         }
 
         private void fullscreenToolStripMenuItem_Click_1(object sender, EventArgs e)
